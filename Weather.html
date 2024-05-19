@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Information</title>
+  <link rel="stylesheet" href="weatherStyle.css">
+  <style>
+    .ad-left, .ad-right {
+      position: fixed;
+      top: 10%;
+      width: 20%;
+    }
+    .ad-left {
+      margin-left: 2.5%;
+    }
+    .ad-right {
+      right: 2.5%;
+    }
+    .back_button {
+    margin-left: 45%;
+    height: 8vh;
+    width: 20vb;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 3vh;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back_button:hover {
+    background-color: #45a049;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="ad-left">
+        <img src="ad1.webp" alt="Advertisement 1" style="width: 100%;">
+    </div>
+    <div class="ad-right">
+        <img src="ad2.webp" alt="Advertisement 2" style="width: 100%;">
+    </div>
+
+    <div style="text-align: center; font-size: 6vh; font-weight: bold; margin-top: 3%;">Current Weather</div>
+    <hr class="hr">
+
+    <div style="text-align: center; font-size: 5vh; font-weight: bold; margin: 1vh;" id="location"></div>
+    
+    <div class="weather-info">
+        <div id="icon"></div>
+        <div id="description"></div>
+    </div>
+    
+    <div class="temperature-info">
+        <div id="temp"></div>
+        <div id="temperature"></div>
+    </div>
+    <button class="back_button" onclick="window.location.href = 'index.html';">Go back</button>
+
+
+  <script>
+    const locationElement = document.getElementById('location');
+    const temperatureElement = document.getElementById('temperature');
+    const descriptionElement = document.getElementById('description');
+    const iconElement = document.getElementById('icon');
+    const tempElement = document.getElementById('temp');
+
+    const weatherData = JSON.parse(localStorage.getItem('weatherData'));
+    
+    function toTitleCase(str) {
+      return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    }
+
+    if (weatherData) {
+      locationElement.textContent = weatherData.name;
+      temperatureElement.textContent = `${Math.round(weatherData.main.temp)}°C`;
+      descriptionElement.textContent = toTitleCase(weatherData.weather[0].description);
+      const iconCode = weatherData.weather[0].icon;
+
+      let iconHtml = '';
+      if (iconCode === '01d') {
+        iconHtml = '<img src="Clear_Sky_(Day).webp" alt="Clear Sky (Day)">';
+      } else if (iconCode === '01n') {
+        iconHtml = '<img src="Clear_Sky_(Night).webp" alt="Clear Sky (Night)">';
+      } else if (iconCode === '02d') {
+        iconHtml = '<img src="Few_Clouds_(Day).webp" alt="Few Clouds (Day)">';
+      } else if (iconCode === '02n') {
+        iconHtml = '<img src="Partly_Cloudy_(Night).webp" alt="Partly Cloudy (Night)">';
+      } else if (iconCode === '03d' || iconCode === '03n') {
+        iconHtml = '<img src="Cloudy.webp" alt="Cloudy">';
+      } else if (iconCode === '04d' || iconCode === '04n') {
+        iconHtml = '<img src="Broken_Clouds.webp" alt="Broken Clouds">';
+      } else if (iconCode === '09d' || iconCode === '09n') {
+        iconHtml = '<img src="Shower_Rain.webp" alt="Shower Rain">';
+      } else if (iconCode === '10d') {
+        iconHtml = '<img src="Rain_(Day).webp" alt="Rain (Day)">';
+      } else if (iconCode === '10n') {
+        iconHtml = '<img src="Rain_(Night).webp" alt="Rain (Night)">';
+      } else if (iconCode === '11d' || iconCode === '11n') {
+        iconHtml = '<img src="Thunderstorm.webp" alt="Thunderstorm">';
+      } else if (iconCode === '13d' || iconCode === '13n') {
+        iconHtml = '<img src="Snow.webp" alt="Snow">';
+      } else if (iconCode === '50d' || iconCode === '50n') {
+        iconHtml = '<img src="Mist.webp" alt="Mist">';
+      } else {
+        iconHtml = iconCode;
+      }
+
+      let tempIconHtml = '';
+      if (weatherData.main.temp <= 0) {
+        tempIconHtml = '<img src="IMG_0384.webp" alt="Cold Weather">';
+      } else if (weatherData.main.temp > 25) {
+        tempIconHtml = '<img src="IMG_0385.webp" alt="Hot Weather">';
+      } else {
+        tempIconHtml = '<img src="Happy_Bok_Chourney.webp" alt="Moderate Weather">';
+      }
+
+      iconElement.innerHTML = iconHtml;
+      tempElement.innerHTML = tempIconHtml;
+    } else {
+      locationElement.textContent = 'No weather data available';
+      temperatureElement.textContent = '';
+      descriptionElement.textContent = '';
+      iconElement.textContent = '';
+      tempElement.textContent = '';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"
+      defer
+    ></script>
+</head>
+<body>
+    <img class="logo" src="Sad_Bok_Chourney.webp">
+    <div class="container">
+        <div class="name">Bok Chourney's Weather</div>
+        <div class="search-container">
+            <input type="text" id='locationInput' class="search-box" placeholder="Where are we going?">
+            <button id='searchButton' class="search-button">Search</button>
+        </div>
+    </div>
+    <script>
+        const apiKey = 'ff725740d3c48de16300e3204883a51a';
+        const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+    
+        const locationInput = document.getElementById('locationInput');
+        const searchButton = document.getElementById('searchButton');
+    
+        searchButton.addEventListener('click', () => {
+            const location = locationInput.value;
+            if (location) {
+                fetchWeather(location);
+            }
+        });
+    
+        function fetchWeather(location) {
+            const url = `${apiUrl}?q=${location}&appid=${apiKey}&units=metric`;
+    
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('weatherData', JSON.stringify(data));
+                    window.location.href = 'weather.html'; // Redirect to weather.html
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                });
+        }
+
+        function initAutocomplete() {
+            new google.maps.places.Autocomplete(
+                document.getElementById('locationInput'),
+                { types: ['(cities)'] }
+            );
+        }
+    </script>
+</body>
+</html>

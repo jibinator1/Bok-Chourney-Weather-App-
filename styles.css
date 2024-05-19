@@ -1,0 +1,65 @@
+body {
+    background-color: lightblue;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    width: 10%;
+    border-radius: 50px;
+}
+
+.logo:hover{
+    content:url('Happy_Bok_Chourney.webp');
+    cursor: pointer;    
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    color: green;
+    font-size: 4vw; /* 5% of the viewport width */
+    font-family: 'Courier New', Courier, monospace;
+    display: block;
+    margin-bottom: 2%;
+    font-weight: bold;
+    margin-top: -20%;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    padding: 1%;
+    font-size: 2vw;
+    border: 0.1vw solid #ccc; 
+    border-radius: 0.5vw;
+}
+
+.search-button {
+    padding: 1% 2%;
+    margin-left: 1%;
+    font-size: 2vw; /* 2% of the viewport width */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 0.5vw; /* 0.5% of the viewport width */
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
